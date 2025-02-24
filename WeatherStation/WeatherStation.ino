@@ -10,7 +10,7 @@
 #define ESP_TX 11  // Pin for SoftwareSerial TX on Arduino
 
 DHT dht(DHTPIN, DHTTYPE);
-SoftwareSerial espSerial(ESP_RX, ESP_TX); // RX, TX
+SoftwareSerial espSerial(ESP_RX, ESP_TX);  // RX, TX
 
 static const byte bucketPin = 2;
 volatile int bucketTipped;
@@ -22,14 +22,13 @@ static const int interval = 5000;
 unsigned long lastMillis = 0;
 
 float windSpeed() {
-  float rotations = anemometerSpin / 2.0;
-  anemometerSpin = 0;
-  float radiusCm = 2.0;
-  float circumferenceCm = (2 * M_PI) * radiusCm;
-  float distanceCm = circumferenceCm * rotations;
-  float windSpeedPerSecond = distanceCm / (interval / 1000.0); // Convert to seconds
-  float windSpeedPerHour = windSpeedPerSecond * 3600; // Convert to cm/h
-  return round(windSpeedPerHour * 100.0) / 100.0; // Round to 2 decimals
+  float pulses = anemometerSpin;                 // Number of pulses in interval
+  anemometerSpin = 0;                            // Reset count
+  float seconds = interval / 1000.0;             // Convert interval to seconds
+  float pulsesPerSecond = pulses / seconds;      // Pulse frequency
+  float windSpeedMPH = pulsesPerSecond * 1.492;  // 80422 spec: 1 pulse/sec = 1.492 MPH
+  float windSpeedKPH = windSpeedMPH * 1.60934;   // Convert to km/h
+  return round(windSpeedKPH * 100.0) / 100.0;    // Return km/h, rounded to 2 decimals
 }
 
 float readWindDirection() {
@@ -39,14 +38,14 @@ float readWindDirection() {
 
   for (int x = 0; x < 16; x++) {
     if (abs(vaneReadingInVolts - headingVolt[x]) < threshold) {
-      return x * 22.5; // Simplified: each step is 22.5 degrees
+      return x * 22.5;  // Simplified: each step is 22.5 degrees
     }
   }
-  return 0; // Default to North if no match
+  return 0;  // Default to North if no match
 }
 
 float rainFall() {
-  const float bucketSize = 0.2794; // mm per tip
+  const float bucketSize = 0.2794;  // mm per tip
   float rainFall = bucketTipped * bucketSize;
   bucketTipped = 0;
   return rainFall;
@@ -73,15 +72,15 @@ void bucketTipCounter() {
 void anemometerSpinCounter() {
   static unsigned long last_interrupt_time = 0;
   unsigned long interrupt_time = millis();
-  if (interrupt_time - last_interrupt_time > 50) { // Add debounce
+  if (interrupt_time - last_interrupt_time > 50) {  // Add debounce
     anemometerSpin++;
   }
   last_interrupt_time = interrupt_time;
 }
 
 void setup() {
-  Serial.begin(115200); // Debugging to PC
-  espSerial.begin(9600); // Match ESP-01S baud rate
+  Serial.begin(115200);   // Debugging to PC
+  espSerial.begin(9600);  // Match ESP-01S baud rate
   dht.begin();
   pinMode(A3, INPUT);
   setupStation();
@@ -121,8 +120,8 @@ void loop() {
     float h = dht.readHumidity();
     float hic = dht.computeHeatIndex(t, h, false);
 
-    StaticJsonDocument<256> doc; // Increased size for more fields
-    doc["temperature"] = t;      // Match ESP-01S keys
+    StaticJsonDocument<256> doc;  // Increased size for more fields
+    doc["temperature"] = t;       // Match ESP-01S keys
     doc["humidity"] = h;
     doc["heatIndex"] = round(hic * 100.0) / 100.0;
     doc["windDirection"] = readWindDirection();
@@ -134,7 +133,7 @@ void loop() {
 
     String json;
     serializeJson(doc, json);
-    Serial.println(json);   // Debug to PC
+    Serial.println(json);     // Debug to PC
     espSerial.println(json);  // Send to ESP-01S
   }
 }
