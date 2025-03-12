@@ -1,6 +1,11 @@
 # 80422 Weather Station Integration
 
-This project is designed to integrate the 80422 weather station with an Arduino-based microcontroller. It uses various sensors to collect environmental data and outputs this data in JSON format for further processing.
+This project is designed to integrate the 80422 weather station with an Arduino-based microcontroller. The system utilizes various sensors to collect environmental data, which is processed and output in JSON format for further use.
+
+The specific weather station used in this implementation is the 80422 model; however, the principles and techniques described here can be applied to other similar weather station systems as well.
+
+The Arduino-based microcontroller transmits the collected data over Serial to an ESP8266 module for further handling and integration. For more details about the ESP8266 MQTT server implementation, refer to
+[this repository](https://github.com/petrusdaffue/esp01_server_mqtt).
 
 ## Features
 
