@@ -77,16 +77,16 @@ This project is designed to integrate the 80422 weather station with an Arduino-
 ## State Machine
 
 The system uses a state machine with the following states:
-1. READ_SENSORS: Reads data from all sensors.
-2. POWER_ON_ESP: Powers up the ESP module for data transmission.
-3. SEND_DATA: Sends the JSON data over Serial.
+- READ_SENSORS: Reads data from all sensors.
+- POWER_ON_ESP: Powers up the ESP module for data transmission.
+- SEND_DATA: Sends the JSON data over Serial.
 
 Sensors and Measurements
-1. Temperature & Humidity: Measured using the DHT11 sensor, including heat index calculation.
-2. Rainfall: Calculated based on the tipping bucket mechanism.
-3. Wind Speed & Direction: Uses the 80422 weather station's anemometer and vane.
-4. Atmospheric Pressure: Measured using the BMP180 sensor.
-5. Additional Sensors: Monitors light levels, solar panel voltage, and battery status.
+- Temperature & Humidity: Measured using the DHT11 sensor, including heat index calculation.
+- Rainfall: Calculated based on the tipping bucket mechanism.
+- Wind Speed & Direction: Uses the 80422 weather station's anemometer and vane.
+- Atmospheric Pressure: Measured using the BMP180 sensor.
+- Additional Sensors: Monitors light levels, solar panel voltage, and battery status.
 
 Interrupts
 - Rainfall and wind speed are measured using interrupts for precise and reliable event counting.
