@@ -71,7 +71,7 @@ This project is designed to integrate the 80422 weather station with an Arduino-
   "batteryLevel": 4.2,
   "solarPanel": 5.8
 }
-
+```
 
 ## How It Works
 ## State Machine
