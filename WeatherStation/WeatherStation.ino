@@ -5,14 +5,16 @@
 #include <Adafruit_BMP085.h>
 
 // Pin Definitions
-#define DHTPIN 5
+#define DHTPIN 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 #define DHTTYPE DHT11
-#define ESP_RESET_PIN 8
+#define ESP_RESET_PIN 4
 #define BUCKET_PIN 2
 #define ANEMOMETER_PIN 3
+#define WIND_DIRECTION_PIN A0
 #define SOLAR_PIN A1
-#define PHOTORESISTOR_PIN A2
-#define BATTERY_PIN A3
+#define BATTERY_PIN A2
+#define PHOTORESISTOR_PIN A3
+
 
 // Sensor Instances
 DHT dht(DHTPIN, DHTTYPE);
@@ -69,7 +71,7 @@ float windSpeed() {
 }
 
 float readWindDirection() {
-  float vaneVolts = analogRead(A0) * 5.0 / 1024.0;
+  float vaneVolts = analogRead(WIND_DIRECTION_PIN) * 5.0 / 1024.0;
   const float headingVolt[] = { 3.84, 1.98, 2.25, 0.41, 0.45, 0.32, 0.90, 0.62,
                                 1.40, 1.19, 3.08, 2.93, 4.62, 4.04, 4.33, 3.43 };
   const float threshold = 0.05;
