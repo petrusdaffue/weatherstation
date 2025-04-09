@@ -11,7 +11,7 @@
 #define BUCKET_PIN 2
 #define ANEMOMETER_PIN 3
 #define WIND_DIRECTION_PIN A0
-#define 4 A1
+#define SOLAR_PIN A1
 #define BATTERY_PIN A2
 #define PHOTORESISTOR_PIN A3
 
