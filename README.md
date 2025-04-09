@@ -37,11 +37,12 @@ The Arduino-based microcontroller transmits the collected data over Serial to an
 | `DHTPIN (5)`  | DHT11 sensor          |
 | `BUCKET_PIN (2)` | Rain gauge           |
 | `ANEMOMETER_PIN (3)` | Wind speed       |
-| `A0`          | Wind direction input  |
+| `ESP_RESET_PIN (4)` | ESP reset control |
+| `WIND_DIRECTION_PIN (A0)` | Wind direction input  |
 | `SOLAR_PIN (A1)` | Solar panel voltage |
-| `PHOTORESISTOR_PIN (A2)` | Light level |
-| `BATTERY_PIN (A3)` | Battery voltage    |
-| `ESP_RESET_PIN (8)` | ESP reset control |
+| `BATTERY_PIN (A2)` | Battery voltage    |
+| `PHOTORESISTOR_PIN (A3)` | Light level |
+
 
 ## Installation
 
