@@ -21,7 +21,7 @@ DHT dht(DHTPIN, DHTTYPE);
 Adafruit_BMP085 bmp;
 
 // Constants
-const unsigned long INTERVAL = 60000;  // 30 seconds
+const unsigned long INTERVAL = 60000;  // 60 seconds
 const float BUCKET_SIZE = 0.2794;      // mm per tip
 
 // Global Variables
